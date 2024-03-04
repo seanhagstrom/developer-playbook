@@ -5,39 +5,39 @@
   vars_prompt:
     - name: setup_git
       prompt: Do you want to configure git? (Y or N)
-      default: "Y"
+      default: 'Y'
       private: no
     - name: generate_ssh_key
       prompt: Do you want to generate an ssh key (Y or N)
-      default: "Y"
+      default: 'Y'
       private: no
     - name: install_postgres
       prompt: Do you want to install PostgreSQL? (Y or N)
-      default: "Y"
+      default: 'Y'
       private: no
     - name: install_node
       prompt: Do you want to install Node.JS? (Y or N)
-      default: "Y"
+      default: 'Y'
       private: no
     - name: install_python
       prompt: Do you want to install Python? (Y or N)
-      default: "Y"
+      default: 'Y'
       private: no
   vars:
-    asdf_user: "{{ ansible_user_id }}"
-    wanted_postgresql_version: "14"
-    wanted_node_version: "16"
+    asdf_user: '{{ ansible_user_id }}'
+    wanted_postgresql_version: '16'
+    wanted_node_version: '20'
   connection: local
-  tasks: 
+  tasks:
     - name: Distribution
       debug: msg="{{ ansible_distribution }}"
-        
+
   roles:
     - role: git
       when: setup_git == "Y"
     - zsh
     - role: ssh-key
-      when: generate_ssh_key == "Y" 
+      when: generate_ssh_key == "Y"
     - aliases
     - role: nodejs
       when: install_node == "Y"
@@ -47,4 +47,3 @@
     - misc-utils
     - role: python
       when: install_python == "Y"
-
